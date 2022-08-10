@@ -8,10 +8,10 @@ const axios = require('axios')
 // ##################################################
 
 // Defining constants
-const koshaAPIToken = 'eyJhbGciOiJSUzI1NiIsImlzcyI6Imtvc2hhQGV0aS5jaXNjby5jb20iLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrb3NoYS1jb25uZWN0b3JzIiwiZXhwIjoxNjYwNzU1NTAzLCJqdGkiOiI4M2QwNTU4NS03OTY2LTQ1MjgtOWI5Yy04NTAzOTE0NWU0ZGQiLCJpYXQiOjE2NjAxNTA3MDMsImlzcyI6Imtvc2hhQGV0aS5jaXNjby5jb20iLCJzdWIiOiJqdWxpYXZAdHJpYWxydW4uY29tIiwicGF5bG9hZCI6e319.KY7C7b3QNPoe5B3PoOxEsBhIN2Sbb0X7AQbl7gwsIo4TCvyH1vSoCRLzXgZd6nHcVXTnZMcYfkZ6JIzVHaV7kb0TotmlGRIdFPmPgPkab7gykNsF74Jy0FCYZeOVAsrVL7y-orVf1rP-Mg4mZ443mg_gFF-ISDWfKFI224tM4LaYGD__Ql9JIbc3QuYi3meuLIE5f4rgZB83xXGc_d0RaM6k3W_mGEDoGnvqcltTOBaSTTbkUDNwx6uRrkvbIs0SqhxKKLpNS13zc3ZfQT5l0UuvHFER9h8DlDLIBeNTIq0ZkMwhtjTPYAfgikprUKbirQApbjgdXH-XBP4qe1AnkA'
+const koshaAPIToken = 'eyJhbGciOiJSUzI1NiIsImlzcyI6Imtvc2hhQGV0aS5jaXNjby5jb20iLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrb3NoYS1jb25uZWN0b3JzIiwiZXhwIjoxNjYwNjY3OTEwLCJqdGkiOiIyNGU5MjZlYy04YTk2LTQ0YzMtOGZjMy0xZmMyNThiY2Q5ZTIiLCJpYXQiOjE2NjAwNjMxMTAsImlzcyI6Imtvc2hhQGV0aS5jaXNjby5jb20iLCJzdWIiOiJqdWxpYXZAYWNtZWNvcnAuY29tIiwicGF5bG9hZCI6e319.b4C3Bs6WRN6Mr7uTFd9vxdZtx_CLdFhYSXthgtjyLMcYbxTX0YYJn_tK4EQMWqx9hElviPGvtYXIz4MmbTSGd3ixgl2qQRcsO1gNChf-SJ1meHS-NRVcNzxY4Xa001lLyYmQkR9o5XbWxjT6TDwLJzo-I7PTFnokwRVaQ5S2t71JCFDY6v9WTKA80FcQ2OufMWSiMCmPADBIaAg5NiOro4BMi3LowafpaNPKiTUqwbxBDn8-C0siFzR36xCQegXHgYDNhQrYrpeFAx06BWTKsrlG_H6ZKIiVk6h-fIEYbdbVJyONZa46qUtD_pGr0R0C6G6-XJPtQqmAsT77ypbU5Q'
 const mssqlTable = 'dbo.tickets'
-const mssqlKoshaEndpoint = `https://mssql-for-client-app.kosha-trial-run-test-org.dev.kosha.app/api/v1/${mssqlTable}/query`
-const freshdeskKoshaEndpoint = 'https://freshdesk-for-client-app.kosha-trial-run-test-org.dev.kosha.app/api/v1/tickets'
+const mssqlKoshaEndpoint = `https://mssql-video-demo.acmecorp.appn.cloud/api/v1/query/raw/sql`
+const freshdeskKoshaEndpoint = 'https://freshdesk-video-demo.acmecorp.appn.cloud/api/v1/tickets'
 
 // Setting up axios, a utility for fetching resources off the web
 const fetcher = axios.create()
@@ -71,7 +71,7 @@ program.command('fetch-and-store')
 
     // Build SQL payload & display result
     const tickets = await fetcher.get(freshdeskKoshaEndpoint).then(resp => resp.data)
-    const query = `INSERT into ${mssqlTable}(id, priority, status, subject) VALUES ${tickets.map(ticket => `(${ticket.id}, '${removeQuotes(ticket.priority)}', '${removeQuotes(ticket.status)}', '${removeQuotes(ticket.subject)}')`)}`
+    const query = `INSERT into ${mssqlTable} (id, priority, status, subject) VALUES ${tickets.map(ticket => `(${ticket.id}, '${removeQuotes(ticket.priority)}', '${removeQuotes(ticket.status)}', '${removeQuotes(ticket.subject)}')`)}`
     const payload = { 'raw_sql': query }
 
     const result = await fetcher.post(mssqlKoshaEndpoint, payload).then(resp => resp.data)
