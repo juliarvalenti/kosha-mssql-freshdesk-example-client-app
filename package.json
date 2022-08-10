@@ -1,0 +1,19 @@
+{
+  "name": "freshdesk-mssql-example-app",
+  "version": "1.0.0",
+  "description": "An example application showing how to connect FreshDesk to MSSQL using Kosha.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://wwwin-github.cisco.com/kosha/freshdesk-mssql-example-app"
+  },
+  "author": "Julia V. @ Cisco Systems ET&I",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "commander": "^9.4.0"
+  }
+}
